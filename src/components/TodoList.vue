@@ -1,7 +1,7 @@
 <template>
     <section>
         <ul>
-            <li v-for="(todoItem,index) in todoItems" :key="todoItem" class="shadow">
+            <li v-for="(todoItem,index) in propsdata" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 {{ todoItem }}
                 <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
@@ -14,21 +14,7 @@
 
 <script>
 export default{
-    data(){
-        return {
-            todoItems:[]
-        }
-    },
-    created(){
-        if(localStorage.length>0){
-            // 로컬저장소가 비어있지 않는 경우 todoItems에 저장
-            for(var i = 0; i<localStorage.length; i++){
-                if(localStorage.key(i) != "loglevel:webpack-dev-server")
-                this.todoItems.push(localStorage.key(i));
-
-            }
-        }
-    },
+    props:['propsdata'],
     methods:{
         removeTodo(todoItem, index){
             localStorage.removeItem(todoItem); //

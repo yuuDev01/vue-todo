@@ -20,7 +20,7 @@ export default{
         addTodo(){
             if(this.newTodoItem !=""){
                 var value = this.newTodoItem && this.newTodoItem.trim() //공백제거
-                localStorage.setItem(value, value);
+                this.$emit("addTodo", value); //이벤트이름, value값 전달
                 this.clearInput();
             }
         },
