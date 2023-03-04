@@ -8,7 +8,7 @@
 export default{
     methods:{
         clearTodo(){
-            this.$emil('removeAll');
+            this.$emit('removeAll');
         }
     }
 
