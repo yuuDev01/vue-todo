@@ -4,6 +4,7 @@
             <li v-for="(todoItem,index) in propsdata" :key="todoItem" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 {{ todoItem }}
+                <span class="reviseBtn" type="button" @click="reviseTodo(todoItem, index)">수정</span>
                 <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
@@ -13,11 +14,17 @@
 </template>
 
 <script>
+import eventBus from './common/eventBus'
 export default{
     props:['propsdata'],
     methods:{
         removeTodo(todoItem, index){
+            //삭제 이벤트 발생, 상위컴포넌트로 전달
             this.$emit('removeTodo', todoItem, index);
+        },
+        reviseTodo(todoItem, index){
+            //수정 이벤트 발생, todoinput 컴포넌트로 해당 아이템 전달
+            eventBus.$emit('reviseTodo', todoItem, index);
         }
     }
 
@@ -49,7 +56,7 @@ export default{
     }
 
     .removeBtn{
-        margin-left: auto;
+        margin-left: 20px;
         color: #de4343;
     }
 
@@ -60,5 +67,10 @@ export default{
     .list-enter, .list-leave-to{
         opacity: 0;
         transform: translateY(30px);
+    }
+
+    .reviseBtn{
+        margin-left:auto;
+        background-color : yellow
     }
 </style>

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import eventBus from './common/eventBus'
 import Modal from './common/Modal.vue'
 
 
@@ -24,22 +25,48 @@ export default{
     data(){
         return{
             newTodoItem:'',
-            showModal: false
+            oldTodoItem:'',
+            showModal: false,
+            reviseIndex:-1
         }
+    },
+    created(){
+        //변경할 데이터 이벤트 버스로 받아오기
+        eventBus.$on("reviseTodo", (todoItem, index) => {
+            // console.log(todoItem,index);
+            //input창에 해당 데이터 넣기
+            this.newTodoItem = todoItem; 
+            this.oldTodoItem = todoItem;
+            this.reviseIndex = index;
+        })
     },
     methods:{
         addTodo(){
-            if(this.newTodoItem !=""){
-                var value = this.newTodoItem && this.newTodoItem.trim() //공백제거
-                this.$emit("addTodo", value); //이벤트이름, value값 전달
+            //reviseIndex가 0이 아닌 경우, 수정
+            if(this.reviseIndex != -1){
+                var value = this.newTodoItem && this.newTodoItem.trim();
+                this.$emit('reviseTodo', value, this.oldTodoItem, this.reviseIndex); //수정 이벤트 이름, value값 전달
+                console.log(value, reviseIndex);
                 this.clearInput();
+                this.clearIndex();
+
             }else{
-                //빈 값을 넣을 때 모달 동작
-                this.showModal = !this.showModal; 
+                if(this.newTodoItem !=""){
+                    var value = this.newTodoItem && this.newTodoItem.trim(); //공백제거
+                    this.$emit("addTodo", value); //이벤트이름, value값 전달
+                    this.clearInput();
+                }else{
+                    //빈 값을 넣을 때 모달 동작
+                    this.showModal = !this.showModal; 
+                }
             }
         },
         clearInput(){
             this.newTodoItem='';
+        },
+        clearIndex(){
+            this.reviseIndex=-1;
+            this.oldTodoItem='';
         }
     },
     components:{

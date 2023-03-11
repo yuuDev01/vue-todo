@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodo="addTodo"></TodoInput>
+    <TodoInput v-on:addTodo="addTodo" @reviseTodo="reviseTodo"></TodoInput>
     <TodoList v-bind:propsdata="todoItems" @removeTodo="removeTodo"></TodoList>
     <TodoFooter v-on:removeAll="clearAll"></TodoFooter>
   </div>
@@ -35,7 +35,8 @@ export default {
       //localStorge에 데이터 추가
       localStorage.setItem(todoItem,todoItem);
       //todoItems에 데이터 추가
-      this.todoItems.push(todoItem)
+      this.todoItems.push(todoItem);
+      console.log(this.todoItems);
 
     },
     clearAll(){
@@ -45,6 +46,12 @@ export default {
     removeTodo(todoItem, index){
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
+    },
+    reviseTodo(todoItem,oldTodoItem, index){
+      console.log(this.todoItems);
+      localStorage.removeItem(oldTodoItem);
+      localStorage.setItem(todoItem,todoItem);
+      this.todoItems.splice(index,1,todoItem);
     }
   },
   components :{
