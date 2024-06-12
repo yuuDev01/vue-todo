@@ -23,7 +23,13 @@ export default{
         background-color: white;
         border-radius: 5px;
         margin: 0 auto;;
+        cursor : pointer;
     }
+
+    .clearAllContainer:active{
+        background: rgb(175, 175, 175);
+    }
+
 
     .clearAllBtn{
         color: #e20303;

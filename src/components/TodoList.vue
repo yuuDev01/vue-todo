@@ -4,7 +4,9 @@
             <li v-for="(todoItem,index) in propsdata" :key="todoItem" class="shadow">
                 <i class="checkBtn fas fa-check" aria-hidden="true"></i>
                 {{ todoItem }}
-                <span class="reviseBtn" type="button" @click="reviseTodo(todoItem, index)">수정</span>
+                <span class="reviseBtn" type="button" @click="reviseTodo(todoItem, index)">
+                    <i class="fas fa-solid fa-pen" aria-hidden="true"></i>
+                </span>
                 <span class="removeBtn" type="button" @click="removeTodo(todoItem, index)">
                     <i class="far fa-trash-alt" aria-hidden="true"></i>
                 </span>
@@ -71,6 +73,6 @@ export default{
 
     .reviseBtn{
         margin-left:auto;
-        background-color : yellow
+        color:#7e65e2
     }
 </style>

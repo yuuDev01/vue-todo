@@ -20,7 +20,6 @@
 import eventBus from './common/eventBus'
 import Modal from './common/Modal.vue'
 
-
 export default{
     data(){
         return{
@@ -41,23 +40,18 @@ export default{
         })
     },
     methods:{
-        addTodo(){
-            //reviseIndex가 0이 아닌 경우, 수정
-            if(this.reviseIndex != -1){
+        addTodo(){           
+            if(this.reviseIndex != -1){ //reviseIndex가 0이 아닌 경우, 수정
                 var value = this.newTodoItem && this.newTodoItem.trim();
                 this.$emit('reviseTodo', value, this.oldTodoItem, this.reviseIndex); //수정 이벤트 이름, value값 전달
-                console.log(value, reviseIndex);
-                this.clearInput();
-                this.clearIndex();
-
+                this.clearInput(); this.clearIndex(); 
             }else{
                 if(this.newTodoItem !=""){
                     var value = this.newTodoItem && this.newTodoItem.trim(); //공백제거
                     this.$emit("addTodo", value); //이벤트이름, value값 전달
                     this.clearInput();
-                }else{
-                    //빈 값을 넣을 때 모달 동작
-                    this.showModal = !this.showModal; 
+                }else{                   
+                    this.showModal = !this.showModal;  //빈 값을 넣을 때 모달 동작
                 }
             }
         },
@@ -65,8 +59,7 @@ export default{
             this.newTodoItem='';
         },
         clearIndex(){
-            this.reviseIndex=-1;
-            this.oldTodoItem='';
+            this.reviseIndex=-1; this.oldTodoItem='';
         }
     },
     components:{
